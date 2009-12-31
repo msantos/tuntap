@@ -64,7 +64,7 @@ open_tuntap(Type, Dev) ->
 		   tap -> "tap"
 	       end,
     DevArg = if Dev == undefined -> "";
-		list(Dev)        -> " " ++ Dev
+		is_list(Dev)        -> " " ++ Dev
 	     end,
     open_port({spawn, "tun_drv "++TypeName++DevArg}, [binary]).
 

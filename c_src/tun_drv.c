@@ -14,10 +14,14 @@
 #include <net/if.h>
 #include <sys/ioctl.h>
 #include <assert.h>
+#include <string.h>
 
 #include <linux/if_tun.h>
 
 #include "erl_driver.h"
+
+#define sys_alloc   malloc
+#define sys_free    free
 
 #define REPLY_ERROR 0
 #define REPLY_OK    1
@@ -201,7 +205,6 @@ static ErlDrvData tun_start(ErlDrvPort port, char *args)
     int fd;
 
     int mode;
-    char dev_name[IFNAMSIZ];
 
     state = (struct tun_state*) sys_alloc(sizeof(struct tun_state));
     if (state == NULL) {
